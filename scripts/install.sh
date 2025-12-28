@@ -17,7 +17,7 @@ TEMP_SERVICE_FILE=$(mktemp)
 cp "$SERVICE_FILE" "$TEMP_SERVICE_FILE"
 
 # Modify the temporary service file
-sed -i "s|ExecStart=.*|ExecStart=/usr/bin/python3 $SCRIPT_FILE|" "$TEMP_SERVICE_FILE"
+sed -i "s|ExecStart=.*|ExecStart=/usr/bin/env python3 $SCRIPT_FILE|" "$TEMP_SERVICE_FILE"
 sed -i "s|WorkingDirectory=.*|WorkingDirectory=$REPO_ROOT|" "$TEMP_SERVICE_FILE"
 sed -i "s|User=.*|User=$CURRENT_USER|" "$TEMP_SERVICE_FILE"
 sed -i "s|Group=.*|Group=$CURRENT_USER|" "$TEMP_SERVICE_FILE"
