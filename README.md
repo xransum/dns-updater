@@ -1,76 +1,69 @@
-# dns-updater
+# DNS Updater
 
 ## Overview
 
-The `dns-updater` is a Python script designed to update DNS records on DreamHost
-dynamically. It retrieves the current public IP address of the machine it's
-running on and updates the specified DNS records accordingly. Additionally,
-it sends notifications to a Discord channel via webhook whenever an update
-occurs.
+The `dns-updater` is a Python script designed to update DNS records on DreamHost dynamically. It retrieves the current public IP address of the machine it's running on and updates the specified DNS records accordingly. Additionally, it sends notifications to a Discord channel via webhook whenever an update occurs.
 
 ## Setup
 
-Clone the repository:
+1. Clone the repository:
 
-```bash
-git clone blah
-```
+   ```bash
+   git clone https://github.com/xransum/dns-updater.git
+   ```
 
-Install the required dependencies:
+2. Navigate to the repository directory:
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   cd dns-updater
+   ```
 
-Edit the appropriate destination path to the `dns_updater.py` script in `dns-updater.service`.
+3. Install the required dependencies:
 
-Copy the service file to the systemd directory:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-sudo cp dns-updater.service /etc/systemd/system/
-```
+4. Create a `.env` file in the root of the repository with the following variables:
 
-Copy the timer file to the systemd directory:
+   ```env
+   DREAMHOST_API_TOKEN=
+   DISCORD_WEBHOOK_ID=
+   DISCORD_WEBHOOK_TOKEN=
+   TARGET_RECORDS=
+   ```
 
-```bash
-sudo cp dns-updater.timer /etc/systemd/system/
-```
+   For the `TARGET_RECORDS`, use a comma-separated list of the DNS records you want to update, each formatted as `domain.tld:type` (e.g., `example.com:A,sub.example.com:AAAA`).
 
-Reload, enable, and start the timer:
+   Example:
 
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable dns-updater.timer
-sudo systemctl start dns-updater.timer
-```
+   ```env
+   TARGET_RECORDS="example.com:A,sub.example.com:AAAA"
+   ```
 
-Check the status of the timer:
+5. Execute the installation script:
 
-```bash
-sudo systemctl status dns-updater.timer
-```
+   ```bash
+   ./scripts/install.sh
+   ```
 
-Alternatively, you can verify the timer and service logs with:
+   This script will:
+   - Install the systemd service and timer files to `/etc/systemd/system/`.
+   - Reload the systemd daemon.
+   - Enable the timer.
+   - Start the timer.
 
-```bash
-sudo systemctl list-timers | grep dns-updater
-sudo journalctl -u dns-updater.service
-```
+6. Verify the setup:
 
-## Configuration
+   - Check the status of the timer:
 
-Within the root of the repository, you need to create a file `.env` with the following variables:
+     ```bash
+     sudo systemctl status dns-updater.timer
+     ```
 
-```env
-DREAMHOST_API_TOKEN
-DISCORD_WEBHOOK_ID
-DISCORD_WEBHOOK_TOKEN
-TARGET_RECORDS
-```
+   - Alternatively, verify the timer and service logs:
 
-For the `TARGET_RECORDS`, use a comma-separated list of the DNS records you want to update,
-each of the records formatted as `domain.tld:type` (e.g., `example.com:A,sub.example.com:AAAA`).
-
-```env
-TARGET_RECORDS="example.com:A,sub.example.com:AAAA"
-```
+     ```bash
+     sudo systemctl list-timers | grep dns-updater
+     sudo journalctl -u dns-updater.service
+     ```
