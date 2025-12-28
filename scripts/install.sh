@@ -29,6 +29,9 @@ sudo cp "$TEMP_SERVICE_FILE" "$INSTALL_DIR/$(basename "$SERVICE_FILE")"
 # Remove the temporary file
 rm "$TEMP_SERVICE_FILE"
 
+# Install the timer file
+echo "Installing $(basename "$TIMER_FILE") to $INSTALL_DIR"
+
 # Copy the timer file as is
 sudo cp "$TIMER_FILE" "$INSTALL_DIR/$(basename "$TIMER_FILE")"
 
