@@ -10,6 +10,9 @@ TIMER_FILE="$SYSTEMD_DIR/dns-updater.timer"
 INSTALL_DIR="/etc/systemd/system"
 SCRIPT_FILE="$REPO_ROOT/dns_updater.py"
 
+# Detect pyenv Python binary
+PYENV_PYTHON=$(pyenv which python3 || echo "/usr/bin/python3")
+
 # Create a temporary file for the modified service
 TEMP_SERVICE_FILE=$(mktemp)
 
@@ -17,7 +20,7 @@ TEMP_SERVICE_FILE=$(mktemp)
 cp "$SERVICE_FILE" "$TEMP_SERVICE_FILE"
 
 # Modify the temporary service file
-sed -i "s|ExecStart=.*|ExecStart=/usr/bin/env python3 $SCRIPT_FILE|" "$TEMP_SERVICE_FILE"
+sed -i "s|ExecStart=.*|ExecStart=$PYENV_PYTHON $SCRIPT_FILE|" "$TEMP_SERVICE_FILE"
 sed -i "s|WorkingDirectory=.*|WorkingDirectory=$REPO_ROOT|" "$TEMP_SERVICE_FILE"
 sed -i "s|User=.*|User=$CURRENT_USER|" "$TEMP_SERVICE_FILE"
 sed -i "s|Group=.*|Group=$CURRENT_USER|" "$TEMP_SERVICE_FILE"
