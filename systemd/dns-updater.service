@@ -1,0 +1,12 @@
+/etc/systemd/system/dns-updater.service
+[Unit]
+Description=DNS Updater
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=<REPLACE THIS PLACEHOLDER>
+WorkingDirectory=<REPLACE THIS PLACEHOLDER>
+User=<REPLACE THIS PLACEHOLDER>
+Group=<REPLACE THIS PLACEHOLDER>
