@@ -6,7 +6,7 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/python3 /home/xransum/Gits/dns-updater/dns_updater.py
-WorkingDirectory=/home/xransum/Gits/dns-updater
+ExecStart=/usr/bin/python3 /home/xransum/Documents/Gits/dns-updater/dns_updater.py
+WorkingDirectory=/home/xransum/Documents/Gits/dns-updater
 User=xransum
 Group=xransum
