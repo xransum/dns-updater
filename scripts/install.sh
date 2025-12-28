@@ -8,7 +8,7 @@ SYSTEMD_DIR="$REPO_ROOT/systemd"
 SERVICE_FILE="$SYSTEMD_DIR/dns-updater.service"
 TIMER_FILE="$SYSTEMD_DIR/dns-updater.timer"
 INSTALL_DIR="/etc/systemd/system"
-SCRIPT_FILE="$REPO_ROOT/dns-updater.py"
+SCRIPT_FILE="$REPO_ROOT/dns_updater.py"
 
 # Create a temporary file for the modified service
 TEMP_SERVICE_FILE=$(mktemp)
